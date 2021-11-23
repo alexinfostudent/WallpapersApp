@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="WallpapersApp.jnlp">
+  <information>
+    <title>WallpapersApp</title>
+    <vendor>alexinfostudent</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="WallpapersApp.jar" size="8291" download="eager" />
+    <jar href="lib\mysql-connector-java-8.0.25.jar" size="2428320" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="800" height="600" main-class="wallpapersapp.WallpapersApp"  name="WallpapersApp" />
+  <update check="always"/>
+</jnlp>
