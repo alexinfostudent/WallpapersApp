@@ -1,10 +1,13 @@
 package wallpapersapp;
 
 import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.text.TextAlignment;
 
 public class RegistrationController {
 
@@ -16,15 +19,22 @@ public class RegistrationController {
     private TextField loginField;
     @FXML
     private PasswordField passwordField;
-    
+    @FXML
+    private Label message;
+
     public void initialize() {
         registrationButton.setOnAction(event -> {
             DataBaseManager dbManager = ContainerBean.getDbManager();
             boolean isAdded = dbManager.addUser(loginField.getText(), passwordField.getText());
-            if(isAdded) {
-                //переход на страницу с обоями
+            if (isAdded) {
+                message.setText("");
+                try {
+                    ProgramNavigation.setRoot("mainClient");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                //вывод ошибки, что такой пользователь уже есть
+                message.setText("Ошибка добавления нового пользователя!");
             }
         });
         backButton.setOnAction(event -> {  //возврат на предыдущую страницу
@@ -34,6 +44,6 @@ public class RegistrationController {
                 e.printStackTrace();
             }
         });
-    }    
-    
+    }
+
 }

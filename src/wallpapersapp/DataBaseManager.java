@@ -4,23 +4,21 @@ import java.sql.*;
 import java.util.HashMap;
 
 public class DataBaseManager { //класс для работы с базой данных
-    
+
     private final String URL = "jdbc:mysql://localhost:3306/wallpapersappdb";
     private final String USER = "root";
     private final String PASS = "123456";
     private Connection connection;
-    
+
     public DataBaseManager() { //установка соединения
         try {
-            Class.forName("com.mysql.jdbc.Driver"); 
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(URL, USER, PASS);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
     public boolean addUser(String login, String password) { //добавление нового пользователя
         try {
             String query = "INSERT INTO users(user_login, user_password) VALUES(?, ?)";
@@ -35,18 +33,16 @@ public class DataBaseManager { //класс для работы с базой д
         }
     }
 
-    public HashMap<String, String> getUsers() { //получение списка всех пользователей
-        HashMap<String, String> usersInfo = new HashMap<>();
+    public ResultSet getUser(String login, String password) { //получение пользователя
         try {
-            String query = "SELECT * FROM users";
+            String query = "SELECT * FROM users WHERE user_login=? AND user_password=?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                usersInfo.put(resultSet.getString(1), resultSet.getString(2));
-            }
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, password);
+            return preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return usersInfo;
     }
 }
