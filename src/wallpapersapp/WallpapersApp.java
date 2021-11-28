@@ -10,7 +10,7 @@ public class WallpapersApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Scene scene = new Scene(ProgramNavigation.loadFXML("authorization"), 690, 390);
+        Scene scene = new Scene(ProgramNavigation.loadFXML("authorization"), 800, 430);
         ProgramNavigation.setScene(scene);
         stage.setScene(scene);
         stage.setResizable(false);

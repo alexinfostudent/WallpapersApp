@@ -23,9 +23,11 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `user_login` varchar(20) NOT NULL,
   `user_password` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`user_login`),
+  PRIMARY KEY (`id`,`user_login`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `user_login` (`user_login`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -36,7 +38,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('alexinfostudent','123'),('alexb','456');
+INSERT INTO `users` VALUES (1,'alexinfostudent','123'),(2,'alexb','456');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-22 18:06:12
+-- Dump completed on 2021-10-29 17:55:07
