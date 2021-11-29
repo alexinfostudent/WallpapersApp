@@ -30,22 +30,19 @@ public class AuthorizationController {
             try {
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
-                    String login = resultSet.getString(2);
-                    String password = resultSet.getString(3);
-                    if (login.equals("") || password.equals("")) {
-                        message.setText("Такого пользователя не существует!");
-                    } else {
-                        message.setText("");
-                        try {
-                            if (id == 1) {
-                                ProgramNavigation.setRoot("mainAdmin");
-                            } else {
-                                ProgramNavigation.setRoot("mainClient");
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    message.setText("");
+                    try {
+                        if (id == 1) {
+                            ProgramNavigation.setRoot("mainAdmin");
+                        } else {
+                            ContainerBean.setUserName(loginField.getText());
+                            ProgramNavigation.setRoot("mainClient");
                         }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                } else {
+                    message.setText("Такого пользователя не существует!");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import javafx.scene.text.TextAlignment;
 
 public class RegistrationController {
 
@@ -28,6 +27,7 @@ public class RegistrationController {
             boolean isAdded = dbManager.addUser(loginField.getText(), passwordField.getText());
             if (isAdded) {
                 message.setText("");
+                ContainerBean.setUserName(loginField.getText());
                 try {
                     ProgramNavigation.setRoot("mainClient");
                 } catch (IOException e) {

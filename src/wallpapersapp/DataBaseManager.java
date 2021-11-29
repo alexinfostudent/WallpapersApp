@@ -1,7 +1,6 @@
 package wallpapersapp;
 
 import java.sql.*;
-import java.util.HashMap;
 
 public class DataBaseManager { //класс для работы с базой данных
 
@@ -28,7 +27,6 @@ public class DataBaseManager { //класс для работы с базой д
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
