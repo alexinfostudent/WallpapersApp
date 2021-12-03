@@ -1,5 +1,7 @@
 package wallpapersapp;
 
+import javafx.scene.image.Image;
+
 public class ContainerBean { //класс хранилище объекта менеджера базы данных
 
     private static String userName;
@@ -9,6 +11,10 @@ public class ContainerBean { //класс хранилище объекта ме
     private static AlertCreator alertCreator = new AlertCreator();
 
     private static WallpapersActions wallpapersActions = new WallpapersActions();
+
+    private static Image openedImage;
+
+    private static WallpaperChanger wallpaperChanger = new WallpaperChanger();
 
     public static String getUserName() {
         return userName;
@@ -40,5 +46,21 @@ public class ContainerBean { //класс хранилище объекта ме
 
     public static void setWallpapersActions(WallpapersActions wallpapersActions) {
         ContainerBean.wallpapersActions = wallpapersActions;
+    }
+
+    public static Image getOpenedImage() {
+        return openedImage;
+    }
+
+    public static void setOpenedImage(Image openedImage) {
+        ContainerBean.openedImage = openedImage;
+    }
+
+    public static WallpaperChanger getWallpaperChanger() {
+        return wallpaperChanger;
+    }
+
+    public static void setWallpaperChanger(WallpaperChanger wallpaperChanger) {
+        ContainerBean.wallpaperChanger = wallpaperChanger;
     }
 }
