@@ -3,7 +3,7 @@ package wallpapersapp;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 
-public class OpenImageController {
+public class OpenImageController { //контроллер страницы открытия окна
 
     @FXML
     private ImageView image;

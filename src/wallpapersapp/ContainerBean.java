@@ -2,7 +2,7 @@ package wallpapersapp;
 
 import javafx.scene.image.Image;
 
-public class ContainerBean { //класс хранилище объекта менеджера базы данных
+public class ContainerBean { //класс хранилище объектов (Dependency injection)
 
     private static String userName;
     

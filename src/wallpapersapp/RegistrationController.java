@@ -8,7 +8,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 
-public class RegistrationController {
+public class RegistrationController { //контроллер регистрации в системе
 
     @FXML
     private Button backButton;
@@ -22,10 +22,10 @@ public class RegistrationController {
     private Label message;
 
     public void initialize() {
-        registrationButton.setOnAction(event -> {
+        registrationButton.setOnAction(event -> { //регистрация в системе
             DataBaseManager dbManager = ContainerBean.getDbManager();
             boolean isAdded = dbManager.addUser(loginField.getText(), passwordField.getText());
-            if (isAdded) {
+            if (isAdded) { //проверка, существует ли пользователь с таким логином
                 message.setText("");
                 ContainerBean.setUserName(loginField.getText());
                 try {
@@ -34,7 +34,7 @@ public class RegistrationController {
                     e.printStackTrace();
                 }
             } else {
-                message.setText("Ошибка добавления нового пользователя!");
+                message.setText("Ошибка! Пользователь с таким логином уже существует");
             }
         });
         backButton.setOnAction(event -> {  //возврат на предыдущую страницу

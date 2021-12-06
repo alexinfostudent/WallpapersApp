@@ -10,7 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 
-public class AuthorizationController {
+public class AuthorizationController { //контроллер входа в систему
 
     @FXML
     private TextField loginField;
@@ -28,11 +28,11 @@ public class AuthorizationController {
             DataBaseManager dbManager = ContainerBean.getDbManager();
             ResultSet resultSet = dbManager.getUser(loginField.getText(), passwordField.getText());
             try {
-                if (resultSet.next()) {
+                if (resultSet.next()) { //есть ли такой пользователь в системе
                     int id = resultSet.getInt(1);
                     message.setText("");
                     try {
-                        if (id == 1) {
+                        if (id == 1) { //проверка является ли пользователь админом
                             ProgramNavigation.setRoot("mainAdmin");
                         } else {
                             ContainerBean.setUserName(loginField.getText());

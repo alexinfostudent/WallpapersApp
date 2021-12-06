@@ -8,7 +8,7 @@ import java.io.IOException;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class MainClientController {
+public class MainClientController { //контроллер главной страницы для пользователя
 
     @FXML
     private Button exitButton;
@@ -36,7 +36,7 @@ public class MainClientController {
     public void initialize() {
         userName.setText(ContainerBean.getUserName());
 
-        image_1.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+        image_1.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> { //назначение обработчика на все картинки, чтобы по ним можно было нажимать
             ContainerBean.getWallpapersActions().openMenu(image_1.getImage(), 1);
         });
 
@@ -72,7 +72,7 @@ public class MainClientController {
             ContainerBean.getWallpapersActions().openMenu(image_9.getImage(), 9);
         });
 
-        exitButton.setOnAction(event -> {
+        exitButton.setOnAction(event -> { //кнопка выхода на экран авторизации
             try {
                 ProgramNavigation.setRoot("authorization");
             } catch (IOException e) {
