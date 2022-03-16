@@ -23,19 +23,7 @@ public class RegistrationController { //контроллер регистрац�
 
     public void initialize() {
         registrationButton.setOnAction(event -> { //регистрация в системе
-            DataBaseManager dbManager = ContainerBean.getDbManager();
-            boolean isAdded = dbManager.addUser(loginField.getText(), passwordField.getText());
-            if (isAdded) { //проверка, существует ли пользователь с таким логином
-                message.setText("");
-                ContainerBean.setUserName(loginField.getText());
-                try {
-                    ProgramNavigation.setRoot("mainClient");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                message.setText("Ошибка! Пользователь с таким логином уже существует");
-            }
+            message.setText(addUser(loginField.getText(), passwordField.getText()));
         });
         backButton.setOnAction(event -> {  //возврат на предыдущую страницу
             try {
@@ -44,5 +32,21 @@ public class RegistrationController { //контроллер регистрац�
                 e.printStackTrace();
             }
         });
+    }
+
+    public String addUser(String login, String password) {
+        DataBaseManager dbManager = ContainerBean.getDbManager();
+        boolean isAdded = dbManager.addUser(login, password);
+        if (isAdded) { //проверка, существует ли пользователь с таким логином
+            ContainerBean.setUserName(login);
+            try {
+                ProgramNavigation.setRoot("mainClient");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            return "Ошибка! Пользователь с таким логином уже существует";
+        }
+        return null;
     }
 }

@@ -25,28 +25,8 @@ public class AuthorizationController { //контроллер входа в си
 
     public void initialize() {
         authButton.setOnAction(event -> { //вход в систему
-            DataBaseManager dbManager = ContainerBean.getDbManager();
-            ResultSet resultSet = dbManager.getUser(loginField.getText(), passwordField.getText());
-            try {
-                if (resultSet.next()) { //есть ли такой пользователь в системе
-                    int id = resultSet.getInt(1);
-                    message.setText("");
-                    try {
-                        if (id == 1) { //проверка является ли пользователь админом
-                            ProgramNavigation.setRoot("mainAdmin");
-                        } else {
-                            ContainerBean.setUserName(loginField.getText());
-                            ProgramNavigation.setRoot("mainClient");
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    message.setText("Такого пользователя не существует!");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            message.setText("");
+            message.setText(check(loginField.getText(), passwordField.getText()));
         });
 
         registrationButton.setOnAction(event -> { //переход на страницу регистрации
@@ -56,5 +36,33 @@ public class AuthorizationController { //контроллер входа в си
                 e.printStackTrace();
             }
         });
+    }
+
+    public String check(String login, String password) {
+        DataBaseManager dbManager = ContainerBean.getDbManager();
+        ResultSet resultSet = dbManager.getUser(login, password);
+        try {
+            if (resultSet.next()) { //есть ли такой пользователь в системе
+                int id = resultSet.getInt(1);
+                try {
+                    if (id == 1) { //проверка является ли пользователь админом
+                        ProgramNavigation.setRoot("mainAdmin");
+                        return "Роль = Админ!";
+                    } else {
+                        ContainerBean.setUserName(login);
+                        ProgramNavigation.setRoot("mainClient");
+                        return "Роль = Клиент!";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            } else {                
+                return "Такого пользователя не существует!";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="WallpapersApp.jar" size="19213387" download="eager" />
+    <jar href="WallpapersApp.jar" size="19215435" download="eager" />
     <jar href="lib\jna-5.8.0.jar" size="1729586" download="eager" />
     <jar href="lib\mysql-connector-java-8.0.25.jar" size="2428320" download="eager" />
   </resources>

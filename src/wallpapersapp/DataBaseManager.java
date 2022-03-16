@@ -43,4 +43,15 @@ public class DataBaseManager { //класс для работы с базой д
             return null;
         }
     }
+    
+    public ResultSet getUsers() { //получение пользователей
+        try {
+            String query = "SELECT * FROM users";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            return preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

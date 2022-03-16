@@ -1,16 +1,25 @@
 package wallpapersapp;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
 
 public class MainAdminController { //контроллер главной страницы для админа
 
     @FXML
     private Button exitButton;
+    @FXML
+    private Button exportButton;
     @FXML
     private ImageView image_1;
     @FXML
@@ -109,6 +118,42 @@ public class MainAdminController { //контроллер главной стр�
                 ProgramNavigation.setRoot("authorization");
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        });
+
+        exportButton.setOnAction(event -> {
+            try {
+                // подключение к БД и выгрузка списка пользователей
+                DataBaseManager dbManager = ContainerBean.getDbManager();
+                ResultSet rs = dbManager.getUsers();
+
+                // открытие окна выбора файла для сохранения
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Сохранить");
+                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text document", "*.txt"));
+                File file = fileChooser.showSaveDialog(ProgramNavigation.getScene().getWindow());
+                PrintWriter printWriter = new PrintWriter(file);
+                BufferedWriter bufferedWriter = new BufferedWriter(printWriter);
+                // запись списка пользователей в выбранный файл
+                bufferedWriter.write("id, user_login, user_password");
+                bufferedWriter.newLine();
+                while (rs.next()) {
+                    bufferedWriter.write(rs.getString("id") + ", " + rs.getString("user_login") + ", " + rs.getString("user_password"));
+                    if (!rs.isLast()) {
+                        bufferedWriter.newLine();
+                    }
+                }
+                rs.close();
+                bufferedWriter.close();
+                printWriter.close();
+
+                // вывод алерта об успешном окончании экспорта
+                Alert alert = ContainerBean.getAlertCreator().createInformationAlert();
+                alert.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert alert = ContainerBean.getAlertCreator().createErrorAlert(e.getLocalizedMessage());
+                alert.show();
             }
         });
     }

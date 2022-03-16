@@ -1,0 +1,9 @@
+build/
+build/classes/wallpapersapp/*.class
+build/classes/wallpapersapp/*.fxml
+build/classes/wallpapersapp/images/
+build/test/classes/wallpapersapptest/*.class
+build/test/results/*.xml
+dist/*.html
+dist/*.jar
+dist/*.jnlp
